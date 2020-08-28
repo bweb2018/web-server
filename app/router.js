@@ -11,10 +11,9 @@ module.exports = app => {
   router.get('/sendcode', controller.util.sendCode);
 
   router.group({ name: 'user', prefix: '/user' }, router => {
-    const { login, register, verify, info } = controller.user;
+    const { login, register, info } = controller.user;
     router.post('/login', login);
     router.post('/register', register);
     router.get('/info', jwt, info);
-    // router.get('/verify', verify);
   });
 };
