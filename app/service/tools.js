@@ -1,12 +1,14 @@
-const { Service } = require("egg");
-const nodemeller = require("nodemailer");
-const userEmail = "mayi15515143250@163.com";
+'use strict';
+
+const { Service } = require('egg');
+const nodemeller = require('nodemailer');
+const userEmail = 'mayi15515143250@163.com';
 const transporter = nodemeller.createTransport({
-service: "163",
-secureConnection: true,
+  service: '163',
+  secureConnection: true,
   auth: {
     user: userEmail,
-    pass: "AJQTXZPXIHBQNEVU",
+    pass: 'AJQTXZPXIHBQNEVU',
   },
 });
 class ToolsService extends Service {

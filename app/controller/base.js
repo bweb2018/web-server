@@ -1,4 +1,6 @@
-const { Controller } = require("egg");
+'use strict';
+
+const { Controller } = require('egg');
 
 class BaseController extends Controller {
   success(data) {

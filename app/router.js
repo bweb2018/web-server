@@ -1,21 +1,20 @@
-"use strict";
+'use strict';
 
 /**
  * @param {Egg.Application} app - egg application
  */
-module.exports = (app) => {
+module.exports = app => {
   const { router, controller } = app;
-  console.log(app.middleware.jwt)
-  const jwt = app.middleware.jwt({app});
-  router.get("/", controller.home.index);
-  router.get("/captcha", controller.util.captcha);
-  router.get("/sendcode", controller.util.sendCode);
+  const jwt = app.middleware.jwt({ app });
+  router.get('/', controller.home.index);
+  router.get('/captcha', controller.util.captcha);
+  router.get('/sendcode', controller.util.sendCode);
 
-  router.group({ name: "user", prefix: "/user" }, (router) => {
+  router.group({ name: 'user', prefix: '/user' }, router => {
     const { login, register, verify, info } = controller.user;
-    router.post("/login", login);
-    router.post("/register", register);
-    router.get("/info", jwt, info);
-    router.get("/verify", verify);
+    router.post('/login', login);
+    router.post('/register', register);
+    router.get('/info', jwt, info);
+    // router.get('/verify', verify);
   });
 };

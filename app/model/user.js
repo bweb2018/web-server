@@ -1,4 +1,6 @@
-module.exports = (app) => {
+'use strict';
+
+module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
@@ -25,5 +27,5 @@ module.exports = (app) => {
       require: false,
     },
   });
-  return mongoose.model("User", userSchema);
+  return mongoose.model('User', userSchema);
 };
