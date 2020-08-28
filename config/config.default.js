@@ -10,7 +10,7 @@ module.exports = appInfo => {
    * built-in config
    * @type {Egg.EggAppConfig}
    **/
-  const config = exports = {};
+  const config = (exports = {});
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1595776143496_2621';
@@ -26,5 +26,22 @@ module.exports = appInfo => {
   return {
     ...config,
     ...userConfig,
+    security: {
+      csrf: {
+        enable: false,
+      },
+    },
+    mongoose: {
+      client: {
+        url: 'mongodb://127.0.0.1:27017/kkbhub',
+        options: {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        },
+      },
+    },
+    jwt: {
+      secret: '@kkb123++abc:.',
+    },
   };
 };
