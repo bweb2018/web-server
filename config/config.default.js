@@ -35,7 +35,8 @@ module.exports = appInfo => {
       client: {
         url: 'mongodb://127.0.0.1:27017/kkbhub',
         options: {
-          useUnifiedTopology: true
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
         },
       },
     },
