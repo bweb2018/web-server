@@ -1,33 +1,31 @@
-"use strict";
+'use strict';
 
-const { Service } = require("egg");
-const path = require("path");
-const fse = require("fs-extra");
-const nodemeller = require("nodemailer");
-const { resolve } = require("path");
-const { write } = require("fs");
-const userEmail = "mayi15515143250@163.com";
+const { Service } = require('egg');
+const path = require('path');
+const fse = require('fs-extra');
+const nodemeller = require('nodemailer');
+const userEmail = 'mayi15515143250@163.com';
 const transporter = nodemeller.createTransport({
-  service: "163",
+  service: '163',
   secureConnection: true,
   auth: {
     user: userEmail,
-    pass: "AJQTXZPXIHBQNEVU",
+    pass: 'AJQTXZPXIHBQNEVU',
   },
 });
 class ToolsService extends Service {
   async mergeChunk(filePath, fileHash, size) {
     const chunkDir = path.resolve(this.config.UPLOAD_FILEPATH, fileHash);
     let chunks = await fse.readdir(chunkDir);
-    chunks.sort((a, b) => a.split("-")[1] - b.split("-")[1]);
-    chunks = chunks.map(cp=> path.resolve(chunkDir, cp));
+    chunks.sort((a, b) => a.split('-')[1] - b.split('-')[1]);
+    chunks = chunks.map(cp => path.resolve(chunkDir, cp));
     await this.margeChunks(filePath, chunks, size);
   }
   async margeChunks(dest, chunks, size) {
     const pipStream = (filePath, writeStream) =>
-      new Promise((resolve) => {
+      new Promise(resolve => {
         const readStream = fse.createReadStream(filePath);
-        readStream.on("end", (e) => {
+        readStream.on('end', () => {
           fse.unlinkSync(filePath);
           resolve();
         });
@@ -35,16 +33,15 @@ class ToolsService extends Service {
       });
 
     await Promise.all(
-      chunks.map((filePath, index) => {
-          pipStream(
-            filePath,
-            fse.createWriteStream(dest, {
-              start: index * size,
-              // end: (index + 1) * size,
-            })
-          );
-          
-      })
+      chunks.map((filePath, index) =>
+        pipStream(
+          filePath,
+          fse.createWriteStream(dest, {
+            start: index * size,
+            // end: (index + 1) * size,
+          })
+        )
+      )
     );
   }
   async sendEmail(email, subject, text, html) {
