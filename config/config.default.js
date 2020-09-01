@@ -18,7 +18,7 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
   config.multipart = {
-    
+
     fileExtensions: [ '.blob' ],
     mode: 'file',
     whitelist: () => true,
