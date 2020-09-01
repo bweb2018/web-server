@@ -18,8 +18,10 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
   config.multipart = {
+    
+    fileExtensions: [ '.blob' ],
     mode: 'file',
-    whiteList: () => true,
+    whitelist: () => true,
   };
   config.UPLOAD_FILEPATH = path.resolve(__dirname, '..', 'app/public');
   // add your user config here
